@@ -1,5 +1,5 @@
 chrome.alarms.create("waterTimer", {
-  periodInMinutes: 1 / 60,
+  periodInMinutes: 1 / 90,
 });
 
 chrome.alarms.onAlarm.addListener((alarm) => {
@@ -8,7 +8,7 @@ chrome.alarms.onAlarm.addListener((alarm) => {
       if (res.isRunning) {
         let timer = res.timer + 1;
         let isRunning = true;
-        if (timer === 60 * res.timeOption) {
+        if (timer === 90 * res.timeOption) {
           this.registration.showNotification("Water Timer", {
             body: `${res.timeOption} minutes has passed!`,
             icon: "icon.png",
@@ -28,7 +28,7 @@ chrome.alarms.onAlarm.addListener((alarm) => {
 chrome.storage.local.get(["timer", "isRunning", "timeOption"], (res) => {
   chrome.storage.local.set({
     timer: "timer" in res ? res.timer : 0,
-    timeOption: "timeOption" in res ? res.timeOption : 25,
+    timeOption: "timeOption" in res ? res.timeOption : 90,
     isRunning: "isRunning" in res ? res.isRunning : false,
   });
 });
